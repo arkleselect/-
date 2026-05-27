@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>视频批量压缩</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-page">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">VC</div>
+          <div>
+            <p class="brand-name">视频批量压缩</p>
+            <p class="brand-subtitle" id="lanAddress">启动后自动显示局域网地址</p>
+          </div>
+        </div>
+        <div class="status-group">
+          <span class="status-pill" id="serverState">检测服务中</span>
+          <span class="worker-pill"><strong id="workerBadge">3</strong> 路并发</span>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <span id="summaryJobs" hidden>0</span>
+        <span id="summaryJobMeta" hidden></span>
+        <span id="summaryReduction" hidden>78.8%</span>
+        <span id="summaryConcurrency" hidden>3</span>
+
+        <section class="upload-panel">
+          <form id="compressForm" class="upload-form">
+            <label class="upload-dropzone" id="dropzone">
+              <input id="videoInput" name="video" type="file" accept="video/*" multiple />
+              <span class="upload-icon">+</span>
+              <strong>拖入视频，或点击选择</strong>
+              <span id="fileHint">支持一次选择多个文件。</span>
+            </label>
+
+            <input id="reductionInput" name="target_reduction" type="hidden" value="78.8" />
+            <input name="content_profile" type="hidden" value="slides" />
+            <span id="reductionValue" hidden>78.8%</span>
+            <span id="profileLabel" hidden>课件录屏</span>
+            <div id="profileGrid" hidden></div>
+
+            <div class="selection-panel">
+              <div>
+                <span class="selection-label">已选择</span>
+                <strong id="selectionFiles">0 个文件</strong>
+              </div>
+              <div>
+                <span class="selection-label">总体积</span>
+                <strong id="selectionSize">0 MB</strong>
+              </div>
+              <div>
+                <span class="selection-label">预估输出</span>
+                <strong id="estimatedOutput">0 MB</strong>
+              </div>
+            </div>
+
+            <div class="submit-row">
+              <span id="ratioExplain" hidden>如果原视频是 200MB，按当前设置目标会落到大约 42.4MB。</span>
+              <button class="primary-button" id="submitButton" type="submit">开始批量压缩</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="queue-panel">
+          <div class="queue-head">
+            <div>
+              <p class="eyebrow">Queue</p>
+              <h2>压缩队列</h2>
+            </div>
+            <div class="queue-badges">
+              <span class="queue-badge queue-badge-running" id="queueRunning">运行中 0</span>
+              <span class="queue-badge queue-badge-queued" id="queueQueued">排队中 0</span>
+              <span class="queue-badge queue-badge-finished" id="queueFinished">已完成 0</span>
+              <a class="download-all-button is-disabled" id="downloadAllButton" aria-disabled="true">全部下载</a>
+            </div>
+          </div>
+
+          <div class="job-table">
+            <div class="job-table-head">
+              <span>文件</span>
+              <span>压缩策略</span>
+              <span>进度</span>
+              <span>操作</span>
+            </div>
+            <div class="job-list" id="jobList">
+              <div class="job-empty">
+                <strong>还没有压缩任务</strong>
+                <p>上传视频后，这里会显示排队、进度和下载入口。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <span id="heroReduction" hidden>78.8%</span>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
